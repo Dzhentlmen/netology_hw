@@ -1,0 +1,73 @@
+from pprint import pprint
+cook_book = {}
+#Задание 1
+with open('file.txt', encoding='utf-8') as file:
+  for line in file:
+    dish_name = line.strip()
+    count_ingridients = int(file.readline().strip())
+    list_ = []
+    for i in range(count_ingridients):
+        d = file.readline().strip().split('|')
+        dish_dict = {'ingredient_name': d[0], 'quantity': d[1], 'measure': d[2]}
+        # собираем все ингредиенты одного блюда в список
+        list_.append(dish_dict)
+    # pprint(list_)
+    # добавляем в словарь блюдо и его ингредиенты
+    cook_book[dish_name] = list_
+    file.readline()
+  for key, value in cook_book.items():
+    print("{0}: {1}".format(key,value))
+
+# pprint(cook_book)
+print()
+#Задание 2
+def get_shop_list_by_dishes(dishes, person_count):
+  dict_res = {}
+  if type(dishes) == list:
+    for i in dishes:
+      if i in cook_book.keys():
+        for key, value in cook_book.items():
+          if i == key:
+            for dish in value:
+              dict_output_q_m = {}
+              dict_output_q_m.update(quantity = int(dish['quantity']) * person_count, measure = dish['measure'])
+              dict_res[dish['ingredient_name']] = dict_output_q_m
+    pprint(dict_res)
+  else:
+    if dishes in cook_book.keys():
+      for key, value in cook_book.items():
+        if dishes == key:
+          for dish in value:
+            dict_output_q_m = {}
+            dict_output_q_m.update(quantity = int(dish['quantity']) * person_count, measure = dish['measure'])
+            dict_res[dish['ingredient_name']] = dict_output_q_m
+    pprint(dict_res)
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+
+print()
+#Задание 3
+with open('1.txt', 'r') as file_1:
+    text_1 = file_1.readlines()
+    size_1 = len(text_1)
+
+with open('2.txt', 'r') as file_2:
+    text_2 = file_2.readlines()
+    size_2 = len(text_2)
+
+with open('Итоговый файл', 'w') as res_file:
+  dict_count = {}
+
+  dict_count[name_file_1] = []
+  dict_count[name_file_1].append(size_1)
+  dict_count[name_file_1].append(text_1)
+  dict_count[name_file_2] = []
+  dict_count[name_file_2].append(size_2)
+  dict_count[name_file_2].append(text_2)
+
+  list_keys = list(dict_count.keys())
+  list_keys.sort()
+  for i in list_keys:
+    res_file.write(f'Название файла -> {i} \n')
+    res_file.write(f'Количество строк -> {dict_count[i][0]} \n')
+    for number, line in enumerate(dict_count[i][1], 1):
+      res_file.write(f'Номер строки {number} - {line.strip()} \n')
