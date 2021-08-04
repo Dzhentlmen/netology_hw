@@ -17,8 +17,8 @@ with open('file.txt', encoding='utf-8') as file:
     file.readline()
   for key, value in cook_book.items():
     print("{0}: {1}".format(key,value))
-
 # pprint(cook_book)
+
 print()
 #Задание 2
 def get_shop_list_by_dishes(dishes, person_count):
