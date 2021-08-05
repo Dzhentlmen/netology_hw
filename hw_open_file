@@ -17,8 +17,8 @@ with open('file.txt', encoding='utf-8') as file:
     file.readline()
   for key, value in cook_book.items():
     print("{0}: {1}".format(key,value))
-# pprint(cook_book)
 
+# pprint(cook_book)
 print()
 #Задание 2
 def get_shop_list_by_dishes(dishes, person_count):
@@ -47,10 +47,12 @@ get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'
 print()
 #Задание 3
 with open('1.txt', 'r') as file_1:
+    name_file_1 = '1.txt'
     text_1 = file_1.readlines()
     size_1 = len(text_1)
 
 with open('2.txt', 'r') as file_2:
+    name_file_2 = '2.txt'
     text_2 = file_2.readlines()
     size_2 = len(text_2)
 
