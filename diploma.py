@@ -2,7 +2,7 @@ import requests
 from pprint import pprint
 from progress.bar import Bar
 #Получение ссылки с аккаунта ВК
-token = '0cce3a725e6316f5f33bcb6ce1af7133f58e0d1c6aea1268ae56c63b5837e43b74682a33b8f8be4d91c26'
+token = ''
 input_id = str(input('Введите id пользователя: '))
 input_count = input('Введите количество фотографий: ')
 URL = 'https://api.vk.com/method/'
@@ -28,7 +28,7 @@ for i in download:
 bar = Bar('Загрузка фотографий на Я.Диск...', max = len(dict_url_likes.values()), suffix = '%(percent)d%%', fill = '█')
 for img_url, likes in dict_url_likes.items():
   #Загрузка на Я.Диск
-  TOKEN = 'AQAAAAA0PqSxAADLW0QNkVCS60kIkwupvRZDqUk'
+  TOKEN = ''
   API_BASE_URL = 'https://cloud-api.yandex.net/'
   headers = {
     'accept': 'application/json',
