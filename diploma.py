@@ -12,7 +12,6 @@ from progress.bar import Bar
 #VK Program Token
 token = '0cce3a725e6316f5f33bcb6ce1af7133f58e0d1c6aea1268ae56c63b5837e43b74682a33b8f8be4d91c26'
 
-#TOKEN = 'AQAAAAA0PqSxAADLW0QNkVCS60kIkwupvRZDqUk'
 #Получение данных от пользователя
 #Getting data from the user
 input_screen_name = input('Введите имя пользователя: ')
