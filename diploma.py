@@ -12,6 +12,7 @@ from progress.bar import Bar
 #VK Program Token
 token = '0cce3a725e6316f5f33bcb6ce1af7133f58e0d1c6aea1268ae56c63b5837e43b74682a33b8f8be4d91c26'
 
+#TOKEN = 'AQAAAAA0PqSxAADLW0QNkVCS60kIkwupvRZDqUk'
 #Получение данных от пользователя
 #Getting data from the user
 input_screen_name = input('Введите имя пользователя: ')
@@ -74,7 +75,7 @@ for img_url, likes in dict_url_likes.items():
   requests.post(API_BASE_URL + 'v1/disk/resources/upload', headers = headers, params = {'path': 'diploma/' + str(likes), 'url': img_url})
   bar.next()
 # Запись логов о загрузке на Я.Диск в файл log.json
-  # Logging about the upload to a Yandex.Disk in file "log.json"
+# Logging about the upload to a Yandex.Disk in file "log.json"
 with open('log.json', 'a') as file:
   file.write(now.strftime("%d-%m-%Y %H:%M") + ': ' + str(list_json))
   file.write('\n')
