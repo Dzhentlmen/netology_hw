@@ -81,7 +81,7 @@ with open('log.json', 'a') as file:
 bar.finish()
 print('Готово! Фотография(-ии) загружены')
 
-
+#Декомпозированный код
 #Дата(ДД/ММ/ГГ)
 #Date(DD/MM/YY)
 import datetime
