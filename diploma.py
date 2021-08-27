@@ -80,3 +80,63 @@ with open('log.json', 'a') as file:
   file.write('\n')
 bar.finish()
 print('Готово! Фотография(-ии) загружены')
+
+
+#Декомпозированный код
+#Дата(ДД/ММ/ГГ)
+#Date(DD/MM/YY)
+import datetime
+now = datetime.datetime.now()
+#Другие библиотеки
+#Other libraries
+import requests
+from pprint import pprint
+from progress.bar import Bar
+#Токен программы ВК
+#VK Program Token
+token = '0cce3a725e6316f5f33bcb6ce1af7133f58e0d1c6aea1268ae56c63b5837e43b74682a33b8f8be4d91c26'
+
+class VkPhoto:
+  URL = 'https://api.vk.com/method/'
+  def __init__(self, token, version):
+    self.params = {
+        'access_token': token,
+        'v': version    
+    }
+
+  def GetID(self, input_screen_name):
+    #Получение owner_id с помощью имени пользователя
+    #Getting owner_id using the user name
+    url = self.URL + 'utils.resolveScreenName'
+    groups_params = {
+      'screen_name': input_screen_name,
+    }
+    response = requests.get(url, params = {**self.params, **groups_params})
+    user_id = response.json()['response']['object_id']
+    return user_id
+
+  def PhotosInfo(self, input_count):
+    #Получение фотографий с аккаунта ВК
+    #Getting photos from the VK account
+    url = self.URL + 'photos.getAll'
+    groups_params = {
+      'count': input_count,
+      'owner_id': vk_user.GetID(input('Введите имя пользователя: ')),
+      'extended': 1,
+    }
+    #Создание списков и словарей
+    #Creating lists and dictionaries
+    list_json = []
+    dict_url_likes = {}
+    #Запрос на сайт и ввод информации в словари и списки
+    #Request to the site and enter information in dictionaries and lists
+    response = requests.get(url, params = {**self.params, **groups_params})
+    download = response.json()['response']['items'][:]
+    for i in download:
+      dict_url_likes[i['sizes'][:][-1]['url']] = i['likes']['count']
+      list_json.append({'file_name': i['likes']['count']})
+    return [dict_url_likes, list_json]
+
+vk_user = VkPhoto(token, '5.131')
+# pprint(vk_user.GetID(input('Введите имя пользователя: ')))
+pprint(vk_user.PhotosInfo(input_count = input('Введите количество фотографий: '))[1])
