@@ -78,4 +78,4 @@ class VkPhoto:
     return print('Готово! Фотография(-ии) загружены')
 
 vk_user = VkPhoto(token, '5.131', input('Введите имя пользователя: '), input('Введите количество фотографий: '), input('Введите токен от Я.Диск: '))
-pprint(vk_user.YandexDiskUpload())
+vk_user.YandexDiskUpload()
