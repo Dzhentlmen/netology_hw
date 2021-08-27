@@ -82,7 +82,6 @@ bar.finish()
 print('Готово! Фотография(-ии) загружены')
 
 
-#Декомпозированный код
 #Дата(ДД/ММ/ГГ)
 #Date(DD/MM/YY)
 import datetime
@@ -98,30 +97,32 @@ token = '0cce3a725e6316f5f33bcb6ce1af7133f58e0d1c6aea1268ae56c63b5837e43b74682a3
 
 class VkPhoto:
   URL = 'https://api.vk.com/method/'
-  def __init__(self, token, version):
+  def __init__(self, token, version, input_screen_name, input_count):
     self.params = {
         'access_token': token,
         'v': version    
     }
+    self.input_screen_name = input_screen_name
+    self.input_count = input_count
 
-  def GetID(self, input_screen_name):
+  def GetID(self):
     #Получение owner_id с помощью имени пользователя
     #Getting owner_id using the user name
     url = self.URL + 'utils.resolveScreenName'
     groups_params = {
-      'screen_name': input_screen_name,
+      'screen_name': self.input_screen_name,
     }
     response = requests.get(url, params = {**self.params, **groups_params})
     user_id = response.json()['response']['object_id']
     return user_id
 
-  def PhotosInfo(self, input_count):
+  def PhotosInfo(self):
     #Получение фотографий с аккаунта ВК
     #Getting photos from the VK account
     url = self.URL + 'photos.getAll'
     groups_params = {
-      'count': input_count,
-      'owner_id': vk_user.GetID(input('Введите имя пользователя: ')),
+      'count': self.input_count,
+      'owner_id': VkPhoto.GetID(self),
       'extended': 1,
     }
     #Создание списков и словарей
@@ -137,6 +138,5 @@ class VkPhoto:
       list_json.append({'file_name': i['likes']['count']})
     return [dict_url_likes, list_json]
 
-vk_user = VkPhoto(token, '5.131')
-# pprint(vk_user.GetID(input('Введите имя пользователя: ')))
-pprint(vk_user.PhotosInfo(input_count = input('Введите количество фотографий: '))[1])
+vk_user = VkPhoto(token, '5.131', input('Введите имя пользователя: '), input('Введите количество фотографий: '))
+pprint(vk_user.PhotosInfo()[1])
