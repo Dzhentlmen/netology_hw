@@ -13,7 +13,7 @@ token = ''
 
 class VkPhoto:
   URL = 'https://api.vk.com/method/'
-  def __init__(self, token, version, input_screen_name, input_count, input_token):
+  def __init__(self, token, version, input_screen_name, input_count, input_token, input_path):
     self.params = {
         'access_token': token,
         'v': version    
@@ -21,6 +21,7 @@ class VkPhoto:
     self.input_screen_name = input_screen_name
     self.input_count = input_count
     self.input_token = input_token
+    self.input_path = input_path
 
   def GetID(self):
     #Получение owner_id с помощью имени пользователя
@@ -67,7 +68,8 @@ class VkPhoto:
         'accept': 'application/json',
         'Authorization': f'OAuth {self.input_token}'
       }
-      requests.post(url + 'v1/disk/resources/upload', headers = headers, params = {'path': 'diploma/' + str(likes), 'url': img_url})
+      requests.put(url + 'v1/disk/resources', headers = headers, params = {'path': self.input_path})
+      requests.post(url + 'v1/disk/resources/upload', headers = headers, params = {'path': self.input_path + '/' + str(likes), 'url': img_url})
       bar.next()
     # Запись логов о загрузке на Я.Диск в файл log.json
     # Logging about the upload to a Yandex.Disk in file "log.json"
@@ -77,5 +79,5 @@ class VkPhoto:
     bar.finish()
     return print('Готово! Фотография(-ии) загружены')
 
-vk_user = VkPhoto(token, '5.131', input('Введите имя пользователя: '), input('Введите количество фотографий: '), input('Введите токен от Я.Диск: '))
+vk_user = VkPhoto(token, '5.131', input('Введите имя пользователя: '), input('Введите количество фотографий: '), input('Введите токен от Я.Диск: '), input_path = str(input('Введите название папки, в которой Вы хотите сохранить фотографии: ')))
 vk_user.YandexDiskUpload()
