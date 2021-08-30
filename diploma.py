@@ -9,7 +9,7 @@ from pprint import pprint
 from progress.bar import Bar
 #Токен программы ВК
 #VK Program Token
-token = '0cce3a725e6316f5f33bcb6ce1af7133f58e0d1c6aea1268ae56c63b5837e43b74682a33b8f8be4d91c26'
+token = ''
 
 class VkPhoto:
   URL = 'https://api.vk.com/method/'
