@@ -52,7 +52,10 @@ class VkPhoto:
     response = requests.get(url, params = {**self.params, **groups_params})
     download = response.json()['response']['items'][:]
     for i in download:
-      dict_url_likes[i['sizes'][:][-1]['url']] = i['likes']['count']
+      if i['likes']['count'] in dict_url_likes:
+        dict_url_likes[i['sizes'][:][-1]['url']] = now.strftime("%d-%m-%Y")
+      else:
+        dict_url_likes[i['sizes'][:][-1]['url']] = i['likes']['count']
       list_json.append({'file_name': i['likes']['count']})
     return [dict_url_likes, list_json]
 
