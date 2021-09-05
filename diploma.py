@@ -50,7 +50,7 @@ class VkPhoto:
       list_json.append({'file_name': i['likes']['count']})
     return [dict_url_likes, list_json]
 
-  def yandex_disk_upload (self):
+  def yandex_disk_upload(self):
     # Progress Bar
     bar = Bar('Загрузка фотографий на Я.Диск...', max = len(VkPhoto.get_photos_info(self)[0].values()), suffix = '%(percent)d%%', fill = '█')
     for img_url, likes in VkPhoto.get_photos_info(self)[0].items():
